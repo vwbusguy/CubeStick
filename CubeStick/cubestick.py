@@ -3,11 +3,22 @@ from Utils.IO import *
 import sys
 
 class CubeStickSession(object):
+    """Handles current session data and input.
+    """
+
     def __init__(self):
+        """Constructor method.  Initializes session data.
+        """
         self._data = {}
         self._router = CubeStickRouter()
 
     def handle_input(self, user_in:str):
+        """Parse user input and hand off to :class:`CubeStickRouter`.
+
+        :param user_in: String from user input
+        :type user_in: string
+        :return: Routes output of eventual handler.  Likely None.
+        """
         user_in = user_in.strip()
         if "'" in user_in: user_in = user_in.split("'",1)[0]
         if user_in == "": return
@@ -19,13 +30,26 @@ class CubeStickSession(object):
         return self._router.route(keyword, args)
 
     def welcome(self) -> None:
+        """Print welcome message in CLI mode.
+        """
         print("Welcome to the CubeStick tester.")
 
 class CubeStickRouter(object):
+    """Class to route inputs to their proper internal handlers.
+    """
     def __init__(self):
+        """Constructor.  Instantiate potential route paths
+        """
         self._IO = CubeStickIO()
 
-    def route(self, keyword:str, args:str):
+    def route(self, keyword:str, args:str=""):
+        """Route arguments to handler based on keyword.
+
+        :param keyword: BASIC function as PRINT
+        :type keyword: string
+        :param args: Any arguments passed to the keyword
+        :type args: string, optional
+        """
         keyword = keyword.upper()
         match keyword:
             case 'PRINT' : 
