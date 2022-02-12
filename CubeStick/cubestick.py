@@ -9,6 +9,7 @@ class CubeStickSession(object):
 
     def handle_input(self, user_in:str):
         user_in = user_in.strip()
+        if "'" in user_in: user_in = user_in.split("'",1)[0]
         if user_in == "": return
         if " " not in user_in:
             keyword = user_in
