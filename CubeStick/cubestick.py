@@ -1,3 +1,5 @@
+from Utils.IO import *
+
 import sys
 
 class CubeStickSession(object):
@@ -31,14 +33,6 @@ class CubeStickRouter(object):
                 # Replace catchable error
                 print("We don't have a handler for that yet.")
                 return
-        return
-
-class CubeStickIO(object):
-    def __init__(self):
-        pass
-
-    def out_print(self, args:str) -> None:
-        print(args)
         return
 
 if __name__ == 'cubestick':
