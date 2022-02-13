@@ -1,4 +1,5 @@
 from Utils.IO import *
+from Utils.OS import *
 
 import sys
 
@@ -41,6 +42,7 @@ class CubeStickRouter(object):
         """Constructor.  Instantiate potential route paths
         """
         self._IO = CubeStickIO()
+        self._OS = CubeStickOS()
 
     def route(self, keyword:str, args:str=""):
         """Route arguments to handler based on keyword.
@@ -54,6 +56,10 @@ class CubeStickRouter(object):
         match keyword:
             case 'PRINT' : 
                 return self._IO.out_print(args) 
+            case '_OS$()':
+                os_info = self._OS.get_OS_info()
+                print(os_info)
+                return os_info
             case _:
                 # Replace catchable error
                 print("We don't have a handler for that yet.")
