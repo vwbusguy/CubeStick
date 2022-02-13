@@ -53,22 +53,33 @@ class CubeStickRouter(object):
         :type args: string, optional
         """
         keyword = keyword.upper()
-        match keyword:
-            case 'PRINT' : 
-                return self._IO.out_print(args) 
-            case '_OS$()':
-                os_info = self._OS.get_OS_info()
-                print(os_info)
-                return os_info
-            case 'FILES':
-                if args.strip() == "": args = "*"
-                files = self._IO.current_path_files(args)
-                print('\n'.join(files))
-                return
-            case _:
-                # Replace catchable error
-                print("We don't have a handler for that yet.")
-                return
+        try:
+            match keyword:
+                case 'PRINT' :
+                    if args.strip() != "":
+                        assert '"' in args, "PRINT statements must be passed as strings"
+                        args = "".join(args.split('"')[1::2])
+                    return self._IO.out_print(args) 
+                case '_OS$()':
+                    assert args.strip() == "", "_OS$() takes no arguments"
+                    os_info = self._OS.get_OS_info()
+                    print(os_info)
+                    return os_info
+                case 'FILES':
+                    if args.strip() != "":
+                        assert '"' in args, "FILES statements must be passed as strings"
+                        args = "".join(args.split('"')[1::2])
+                    else: 
+                        args = "*"
+                    files = self._IO.current_path_files(args)
+                    print('\n'.join(files))
+                    return
+                case _:
+                    # Replace catchable error
+                    print("We don't have a handler for that yet.")
+                    return
+        except Exception as e:
+            print("That didn't work.  Here's what we know:\n%s" % e)
         return
 
 if __name__ == 'cubestick':
