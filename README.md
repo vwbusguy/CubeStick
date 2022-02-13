@@ -15,4 +15,3 @@ It can be compiled with pyinstaller:
 
 `pyinstaller -p CubeStick CubeStick/__main__.py -n cubestick -F`
 
-See the Sphinx [documentation](/docs/build/html/index.html).
