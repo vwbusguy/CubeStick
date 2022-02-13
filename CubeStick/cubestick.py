@@ -60,6 +60,11 @@ class CubeStickRouter(object):
                 os_info = self._OS.get_OS_info()
                 print(os_info)
                 return os_info
+            case 'FILES':
+                if args.strip() == "": args = "*"
+                files = self._IO.current_path_files(args)
+                print('\n'.join(files))
+                return
             case _:
                 # Replace catchable error
                 print("We don't have a handler for that yet.")
